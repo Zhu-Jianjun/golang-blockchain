@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"log"
 	"math"
-	"math/big" //whenever save the program, the import will be updated automatically.
+	"math/big"
 )
 
 // Take the data from the block
@@ -59,7 +59,7 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 
 	for nonce < math.MaxInt64 {
 		data := pow.InitData(nonce)
-		hash := sha256.Sum256(data)
+		hash = sha256.Sum256(data) // previously wrong in here
 
 		fmt.Printf("\r%x", hash)
 		intHash.SetBytes(hash[:])
@@ -93,5 +93,6 @@ func ToHex(num int64) []byte {
 	if err != nil {
 		log.Panic(err)
 	}
+
 	return buff.Bytes()
 }
